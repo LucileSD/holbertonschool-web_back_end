@@ -7,7 +7,6 @@ from typing import List
 import asyncio
 
 wait_random = __import__('0-basic_async_syntax').wait_random
-task_wait_random = wait_random
 
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
@@ -18,6 +17,7 @@ async def task_wait_n(n: int, max_delay: int) -> List[float]:
             max_delay: the delay maximum
         return: a list of delay
     """
+    task_wait_random = wait_random
     delays = []
     tasks = []
     for i in range(n):
