@@ -5,7 +5,6 @@
 
 from asyncio import Task
 import asyncio
-from typing import Any, AsyncGenerator
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
