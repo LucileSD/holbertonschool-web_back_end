@@ -8,7 +8,7 @@ import random
 from typing import Optional
 
 
-async def wait_random(max_delay: Optional[float] = 10) -> float:
+async def wait_random(max_delay: int = 10) -> float:
     """
         asynchronous coroutine
         args:
