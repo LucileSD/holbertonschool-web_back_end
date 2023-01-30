@@ -48,7 +48,7 @@ class Server:
         assert isinstance(page_size, int) and page_size > 0
 
         indexed_dataset = self.indexed_dataset()
-        keys = sorted(indexed_dataset.keys())
+        keys = indexed_dataset.keys()
         next_index = index + page_size
         data = []
 
