@@ -4,6 +4,7 @@
 """
 
 from base_caching import BaseCaching
+import sys
 
 
 class BasicCache(BaseCaching):
@@ -28,7 +29,7 @@ class BasicCache(BaseCaching):
             return:
                 the value of the key or none
         """
-        if key is None or key not in self.cache_data:
-            return None
-        else:
+        if key in self.cache_data:
             return self.cache_data[key]
+        else:
+            return None
