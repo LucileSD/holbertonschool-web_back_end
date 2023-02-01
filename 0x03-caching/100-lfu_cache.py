@@ -32,10 +32,10 @@ class LFUCache(BaseCaching):
                 self.cache_data[key] = item
                 self.frequency_data[key] = 0
             if len(self.cache_data) > self.MAX_ITEMS:
-                least_frequent_key = self.frequency_data.popitem()
+                least_freq_key = self.frequency_data.popitem()
                 index = min(self.frequency_data, key=self.frequency_data.get)
                 self.frequency_data.pop(index)
-                self.frequency_data[least_frequent_key[0]] = least_frequent_key[1]
+                self.frequency_data[least_freq_key[0]] = least_freq_key[1]
                 print("DISCARD: {}".format(index))
                 self.cache_data.pop(index)
 
