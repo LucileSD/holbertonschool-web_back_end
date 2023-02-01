@@ -24,7 +24,7 @@ class LFUCache(BaseCaching):
                 key: the key of the dictionary
                 item: the value of the key
         """
-        if key is not None or item is not None:
+        if key is not None and item is not None:
             if key in self.cache_data:
                 self.cache_data[key] = item
                 self.frequency_data[key] += 1

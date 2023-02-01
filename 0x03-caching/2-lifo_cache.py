@@ -24,7 +24,7 @@ class LIFOCache(BaseCaching):
                 key: the key of the dictionary
                 item: the value of the key
         """
-        if key is not None or item is not None:
+        if key is not None and item is not None:
             if key in self.cache_data:
                 self.cache_data[key] = item
             elif len(self.cache_data) >= self.MAX_ITEMS:

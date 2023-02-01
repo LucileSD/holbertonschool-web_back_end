@@ -24,7 +24,7 @@ class FIFOCache(BaseCaching):
                 key: the key of the dictionary
                 item: the value of the key
         """
-        if key is not None or item is not None:
+        if key is not None and item is not None:
             if len(self.cache_data) >= self.MAX_ITEMS:
                 discard_key = self.key_order.pop(0)
                 self.cache_data.pop(discard_key)
