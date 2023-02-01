@@ -52,7 +52,8 @@ def get_logger() -> logging.Logger:
     """
         Create logger
     """
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger()
+    logger.name = "user_data"
     logger.setLevel(logging.INFO)
     logger.propagate = False
     handler = logging.StreamHandler()
@@ -75,3 +76,21 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                   host=db_host,
                                   database=db_name)
     return cnx
+
+
+def main():
+    """"""
+    logger = get_logger()
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+    for row in cursor.fetchall():
+        logger.info("name={}; email={}; phone={}; ssn={}; password={};\
+ ip={}; last_login={}; user_agent={}".format(row[0], row[1], row[2], row[3],
+                                             row[4], row[5], row[6], row[7]))
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()
