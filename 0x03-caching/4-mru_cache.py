@@ -32,8 +32,8 @@ class MRUCache(BaseCaching):
                 discard_key = self.recently_used.pop(-1)
                 del self.cache_data[discard_key]
                 print("DISCARD: {}".format(discard_key))
-        self.cache_data[key] = item
-        self.recently_used.append(key)
+            self.cache_data[key] = item
+            self.recently_used.append(key)
 
     def get(self, key):
         """

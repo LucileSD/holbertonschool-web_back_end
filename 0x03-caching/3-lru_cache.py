@@ -24,15 +24,15 @@ class LRUCache(BaseCaching):
                 key: the key of the dictionary
                 item: the value of the key
         """
-        if key or item:
+        if key is not None and item is not None:
             if key in self.cache_data:
                 self.recently_used.remove(key)
             elif len(self.cache_data) >= self.MAX_ITEMS:
                 discarded = self.recently_used.pop(0)
                 del self.cache_data[discarded]
                 print("DISCARD: {}".format(discarded))
-        self.cache_data[key] = item
-        self.recently_used.append(key)
+            self.cache_data[key] = item
+            self.recently_used.append(key)
 
     def get(self, key):
         """
