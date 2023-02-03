@@ -44,7 +44,6 @@ class Server:
             if between two queries, certain rows are removed from the dataset,
             the user does not miss items from dataset when changing page.
         """
-        
         assert isinstance(page_size, int) and page_size > 0
 
         indexed_dataset = self.indexed_dataset()
