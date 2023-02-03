@@ -44,19 +44,21 @@ class Server:
             if between two queries, certain rows are removed from the dataset,
             the user does not miss items from dataset when changing page.
         """
-        assert isinstance(index, int) and index >= 0
+        
         assert isinstance(page_size, int) and page_size > 0
 
         indexed_dataset = self.indexed_dataset()
-        keys = indexed_dataset.keys()
+        assert isinstance(index, int) and index <= len(indexed_dataset)
         next_index = index + page_size
         data = []
+        i = index
 
-        for i in range(index, next_index):
-            if i in keys:
+        while (i < next_index):
+            if i in indexed_dataset.keys():
                 data.append(indexed_dataset[i])
             else:
                 next_index += 1
+            i += 1
 
         return {
             "index": index,
