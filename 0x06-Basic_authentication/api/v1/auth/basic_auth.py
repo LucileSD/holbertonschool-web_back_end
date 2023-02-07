@@ -57,13 +57,14 @@ class BasicAuth(Auth):
             return None
         if user_pwd is None or type(user_pwd) is not str:
             return None
-        search_user = User.search({'email': user_email})
-        if len(search_user) == 0:
+        try:
+            users = User.search({'email': user_email})
+        except Exception:
             return None
-        user = search_user[0]
-        if not user.is_valid_password(user_pwd):
-            return None
-        return user
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         """retrive all information of the user"""
