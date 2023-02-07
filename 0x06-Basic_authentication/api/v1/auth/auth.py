@@ -12,15 +12,14 @@ class Auth:
         """ask authentification"""
         if path is None:
             return True
-        if excluded_paths is None or not excluded_paths:
+        if excluded_paths is None or len(excluded_paths) == 0:
             return True
         for excluded in excluded_paths:
-            if excluded.startswith(path):
+            if excluded.startswith(path) or excluded == path:
                 return False
             if excluded.endswith("*") and path.startswith(excluded[:-1]):
                 return False
-            else:
-                return True
+        return True
 
     def authorization_header(self, request=None) -> str:
         """authorization header"""
