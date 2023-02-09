@@ -23,7 +23,7 @@ class SessionDBAuth(SessionExpAuth):
         if session_id is None:
             return None
         UserSession.load_from_file()
-        session = UserSession.search({"session_id":session_id})
+        session = UserSession.search({"session_id": session_id})
         user = session[0]
         return user.user_id
 
@@ -37,4 +37,3 @@ class SessionDBAuth(SessionExpAuth):
                     UserSession.save_to_file()
                     return True
         return False
-
