@@ -46,11 +46,14 @@ class DB:
             find a user by an arbitrary keyword
             return the first row found in the users table
         """
-        find = self._session.query(User).filter_by(**kwargs).first()
-        if find:
-            return find
-        else:
-            raise NoResultFound
+        try:
+            find = self._session.query(User).filter_by(**kwargs).first()
+            if find:
+                return find
+            else:
+                raise NoResultFound
+        except InvalidRequestError:
+            raise
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """update the value of an attribute of the user"""
