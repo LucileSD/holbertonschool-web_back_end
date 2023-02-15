@@ -52,7 +52,7 @@ class Auth:
         except NoResultFound:
             return None
         user.session_id = _generate_uuid()
-        self._db._session.commit()
+        self._db.update_user(user.id, session_id=user.session_id)
         return user.session_id
 
     def get_user_from_session_id(self, session_id: str) -> User:
