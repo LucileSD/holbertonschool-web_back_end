@@ -48,10 +48,9 @@ class DB:
         """
         try:
             find = self._session.query(User).filter_by(**kwargs).first()
-            if find:
-                return find
-            else:
+            if not find:
                 raise NoResultFound
+            return find
         except InvalidRequestError:
             raise
 
