@@ -35,9 +35,10 @@ class DB:
         """save the user to the database
            returns a User object
         """
+        session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
+        session.add(new_user)
+        session.commit()
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
