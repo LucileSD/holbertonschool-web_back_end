@@ -32,19 +32,19 @@ class Auth:
         """add a user in the database"""
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'),
-                                  user.hashed_password)
-        except Exception:
-            return False
+        except NoResultFound:
+            user = self._db.add_user(email, _hash_password(password))
+            return user
+        raise ValueError("User {} already exists".format(user.email))
 
     def valid_login(self, email, password) -> bool:
         """check if password match with the hashed password"""
         try:
             user = self._db.find_user_by(email=email)
-        except NoResultFound:
+            pwd = password.encode('utf-8')
+            return bcrypt.checkpw(pwd, user.hashed_password)
+        except Exception:
             return False
-        pwd = password.encode('utf-8')
-        return bcrypt.checkpw(pwd, user.hashed_password)
 
     def create_session(self, email: str) -> str:
         """generate a new UUID and store it in the database as the user’s
