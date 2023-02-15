@@ -4,9 +4,9 @@
 
 import bcrypt
 from db import DB
+from sqlalchemy.orm.exc import NoResultFound
 from user import User
 import uuid
-from sqlalchemy.orm.exc import NoResultFound
 
 
 def _hash_password(password: str) -> bytes:
