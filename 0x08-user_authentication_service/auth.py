@@ -51,8 +51,7 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             return None
-        new = self._db._session.query(User).filter_by(email=email).first()
-        new.session_id = _generate_uuid()
+        user.session_id = _generate_uuid()
         self._db._session.commit()
         return user.session_id
 
