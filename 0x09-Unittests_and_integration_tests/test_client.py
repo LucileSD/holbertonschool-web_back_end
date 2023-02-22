@@ -36,7 +36,7 @@ class TestGithubOrgClient(unittest.TestCase):
         with patch("client.GithubOrgClient._public_repos_url",
                    new_callable=PropertyMock, return_value=[]) as mc:
             obj = GithubOrgClient("google")
-            response = obj.public_repos(license="")
+            response = obj.public_repos(license="string")
             self.assertEqual(response, mc.return_value)
             patched.assert_called_once()
             mc.assert_called_once
