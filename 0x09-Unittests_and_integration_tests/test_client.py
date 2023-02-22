@@ -21,22 +21,21 @@ class TestGithubOrgClient(unittest.TestCase):
         patched_get_json.assert_called_once()
 
     def test_public_repos_url(self):
-        """test public_repos()"""
-        org = "google"
+        """test public_repos"""
         patched = "client.GithubOrgClient.org"
         expected = "https://api.github.com/orgs/google/repos"
         payload = {"repos_url": expected}
         with patch(patched, PropertyMock(return_value=payload)):
-            obj = GithubOrgClient(org)
+            obj = GithubOrgClient("google")
             self.assertEqual(obj._public_repos_url, expected)
 
     @patch("client.get_json", return_value={})
     def test_public_repo(self, patched):
-        """test public_repos()"""
+        """test public_repos"""
         with patch("client.GithubOrgClient._public_repos_url",
                    new_callable=PropertyMock, return_value=[]) as mc:
             obj = GithubOrgClient("google")
-            response = obj.public_repos(license="string")
+            response = obj.public_repos(license="f")
             self.assertEqual(response, mc.return_value)
             patched.assert_called_once()
             mc.assert_called_once()
