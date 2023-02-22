@@ -2,9 +2,8 @@
 """module to test client.py"""
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized, parameterized_class
+from parameterized import parameterized
 from client import GithubOrgClient
-from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
