@@ -29,8 +29,9 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
             self.assertEqual(raises.exception, expected)
 
+
 class TestGetJson(unittest.TestCase):
-    """"""
+    """test get json"""
     @parameterized.expand([
             ("http://example.com", {"payload": True}),
             ("http://holberton.io", {"payload": False})
@@ -41,3 +42,23 @@ class TestGetJson(unittest.TestCase):
             mc.return_value.json.return_value = test_payload
             self.assertEqual(get_json(test_url), test_payload)
             mc.assert_called_once()
+
+
+class TestMemoize(unittest.TestCase):
+    """test cache"""
+    def test_memoize(self):
+        """test cache"""
+        class TestClass:
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        with patch.object(TestClass, "a_method", return_value=42) as moc_meth:
+            obj = TestClass()
+            self.assertEqual(obj.a_property, moc_meth.return_value)
+            self.assertEqual(obj.a_property, moc_meth.return_value)
+            moc_meth.assert_called_once()
