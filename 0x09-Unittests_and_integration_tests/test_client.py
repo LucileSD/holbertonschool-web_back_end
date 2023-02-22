@@ -29,7 +29,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(obj._public_repos_url, expected)
 
     @patch("client.get_json", return_value={})
-    def test_public_repo(self, patched):
+    def test_public_repos(self, patched):
         """test public_repos"""
         with patch("client.GithubOrgClient._public_repos_url",
                    new_callable=PropertyMock, return_value=[]) as mc:
