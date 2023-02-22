@@ -65,6 +65,16 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher = patch('requests.get', return_value=requests_json)
         cls.mock_get = cls.get_patcher.start()
 
+    def test_public_repos(self):
+        """test public_repos"""
+        obj = GithubOrgClient("google")
+        self.assertEqual(obj.public_repos(), self.expected_repos)
+
+    def test_public_repos_with_license(self):
+        """test license"""
+        obj = GithubOrgClient("google")
+        self.assertEqual(obj.public_repos("apache-2.0"), self.apache2_repos)
+
     @classmethod
     def tearDownClass(cls):
         """close integration test"""
