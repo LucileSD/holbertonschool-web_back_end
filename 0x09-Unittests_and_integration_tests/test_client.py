@@ -39,4 +39,4 @@ class TestGithubOrgClient(unittest.TestCase):
             response = obj.public_repos(license="string")
             self.assertEqual(response, mc.return_value)
             patched.assert_called_once()
-            mc.assert_called_once
+            mc.assert_called_once()
