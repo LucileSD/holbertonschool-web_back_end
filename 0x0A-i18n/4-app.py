@@ -27,7 +27,7 @@ def hello():
 
 @babel.localeselector
 def get_locale():
-    """define the best language"""
+    """define the best language or use locale information"""
     locale = request.args.get('locale')
     if locale:
         return locale
