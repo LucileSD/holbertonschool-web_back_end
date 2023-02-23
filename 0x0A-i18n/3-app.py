@@ -22,9 +22,7 @@ babel.init_app(app)
 @app.route('/')
 def hello():
     """print hello world"""
-    title = _("home_title")
-    h1 = _("home_header")
-    return (render_template("3-index.html", title=title, hello=h1))
+    return render_template("3-index.html")
 
 
 @babel.localeselector
