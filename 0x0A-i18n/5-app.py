@@ -51,7 +51,7 @@ def hello():
 def get_user():
     """find a user in users dict or use locale information"""
     login = request.args.get('login_as')
-    if login and int(login) in users:
+    if login:
         return users.get(int(login))
     return None
 
