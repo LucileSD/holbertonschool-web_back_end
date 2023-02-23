@@ -15,6 +15,12 @@ users = {
 }
 
 
+@app.before_request
+def before_request():
+    """define g.user to send to template"""
+    g.user = get_user()
+
+
 class Config(object):
     """configuration language"""
     LANGUAGES = ["en", "fr"]
@@ -48,14 +54,7 @@ def get_user():
     if login:
         user = users.get(int(login))
         return user
-    else:
-        return None
-
-
-@app.before_request
-def before_request():
-    """define g.user to send to template"""
-    g.user = get_user()
+    return None
 
 
 if __name__ == '__main__':
