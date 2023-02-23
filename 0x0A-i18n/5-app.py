@@ -43,7 +43,7 @@ def get_locale():
 
 
 def get_user():
-    """find a user in users dict"""
+    """find a user in users dict or use locale information"""
     login = request.args.get('login_as')
     if login:
         user = users.get(int(login))
