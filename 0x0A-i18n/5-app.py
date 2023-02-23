@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 app = Flask(__name__)
+babel = Babel(app)
 
 
 users = {
@@ -29,14 +30,7 @@ class Config(object):
 
 
 app.config.from_object(Config)
-babel = Babel(app)
 babel.init_app(app)
-
-
-@app.route('/')
-def hello():
-    """print hello world"""
-    return render_template("5-index.html")
 
 
 @babel.localeselector
@@ -46,6 +40,12 @@ def get_locale():
     if locale:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.route('/', methods=["GET"])
+def hello():
+    """print hello world"""
+    return render_template("5-index.html")
 
 
 def get_user():
