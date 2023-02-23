@@ -5,8 +5,18 @@ from flask import Flask, render_template
 from flask_babel import Babel
 
 app = Flask(__name__)
-app.config.__class__('Config')
+
+
+class Config():
+    """configuration language"""
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
+
+
+app.config.from_object(Config)
 babel = Babel(app)
+babel.init_app(app)
 
 
 @app.route('/')
@@ -15,13 +25,6 @@ def hello():
     title = "Welcome to Holberton"
     h1 = "Hello world"
     return render_template("1-index.html", title=title, hello=h1)
-
-
-class Config():
-    """configuration language"""
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 if __name__ == '__main__':
