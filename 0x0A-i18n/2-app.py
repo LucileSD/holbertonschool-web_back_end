@@ -24,7 +24,7 @@ def hello():
     """print hello world"""
     title = "Welcome to Holberton"
     h1 = "Hello world"
-    return render_template("1-index.html", title=title, hello=h1)
+    return render_template("2-index.html", title=title, hello=h1)
 
 
 @babel.localeselector
