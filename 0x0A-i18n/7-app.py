@@ -8,6 +8,7 @@ from pytz import timezone
 import pytz.exceptions
 
 app = Flask(__name__)
+babel = Babel(app)
 
 
 users = {
@@ -32,14 +33,7 @@ class Config(object):
 
 
 app.config.from_object(Config)
-babel = Babel(app)
 babel.init_app(app)
-
-
-@app.route('/')
-def hello():
-    """print hello world"""
-    return render_template("7-index.html")
 
 
 @babel.localeselector
@@ -60,6 +54,12 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+@app.route('/', methods=["GET"])
+def hello():
+    """print hello world"""
+    return render_template("7-index.html")
+
+
 def get_user():
     """find a user in users dict or use locale information"""
     login = request.args.get('login_as')
@@ -67,6 +67,7 @@ def get_user():
         user = users.get(int(login))
         return user
     return None
+
 
 @babel.timezoneselector
 def get_timezone():
@@ -79,7 +80,6 @@ def get_timezone():
         if time:
             return time
     return request.headers.get("timezone")
-
 
 
 if __name__ == '__main__':
