@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """module application"""
 
+import datetime
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 import pytz
@@ -25,6 +26,14 @@ def before_request():
     g.user = get_user()
     timezone = get_timezone()
     print(timezone)
+    now = datetime.datetime.now()
+    zone = now.astimezone(timezone)
+    if get_locale() == "fr":
+        fmt = '%d-%m-%Y %H:%M:%S'
+    else:
+        fmt = '%m-%d-%Y %I:%M:%S %p'
+    zone = zone.strftime(fmt)
+    g.current_time = zone
 
 
 class Config(object):
@@ -64,12 +73,12 @@ def get_timezone():
     try:
         timezone_str = request.args.get('timezone')
         if timezone_str and pytz.timezone(timezone_str):
-            return timezone_str
+            return pytz.timezone(timezone_str)
 
         if g.user:
             timezone_str = g.user.get("timezone")
             if timezone_str and pytz.timezone(timezone_str):
-                return timezone_str
+                return pytz.timezone(timezone_str)
     except pytz.exceptions.UnknownTimeZoneError:
         return timezone(app.config['BABEL_DEFAULT_TIMEZONE'])
 
@@ -79,7 +88,7 @@ def get_timezone():
 @app.route('/', methods=["GET"])
 def hello():
     """print hello world"""
-    return render_template("7-index.html")
+    return render_template("index.html")
 
 
 def get_user():
