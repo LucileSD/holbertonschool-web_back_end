@@ -69,10 +69,9 @@ def get_timezone():
             if timezone_str and pytz.timezone(timezone_str):
                 return timezone_str
     except pytz.exceptions.UnknownTimeZoneError:
-        return 'UTC'
+        return timezone(app.config['BABEL_DEFAULT_TIMEZONE'])
 
-    return request.accept_languages.best_match(app.config
-                                               ['BABEL_DEFAULT_LOCALE'])
+    return timezone(app.config['BABEL_DEFAULT_TIMEZONE'])
 
 
 @app.route('/', methods=["GET"])
