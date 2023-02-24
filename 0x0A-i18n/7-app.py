@@ -54,6 +54,29 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
+@babel.timezoneselector
+def get_timezone():
+    """define the best timezone"""
+    timezone_str = request.args.get('timezone')
+    if timezone_str:
+        try:
+            timezone(timezone_str)
+            return timezone_str
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+
+    if g.user:
+        timezone_str = g.user.get("timezone")
+        if timezone_str:
+            try:
+                timezone(timezone_str)
+                return timezone_str
+            except pytz.exceptions.UnknownTimeZoneError:
+                pass
+
+    return app.config['BABEL_DEFAULT_TIMEZONE']
+
+
 @app.route('/', methods=["GET"])
 def hello():
     """print hello world"""
@@ -67,19 +90,6 @@ def get_user():
         user = users.get(int(login))
         return user
     return None
-
-
-@babel.timezoneselector
-def get_timezone():
-    """"""
-    time = request.args.get('timezone')
-    if time:
-        return time
-    if g.user:
-        time = g.user.get("timezone")
-        if time:
-            return time
-    return request.headers.get("timezone")
 
 
 if __name__ == '__main__':
