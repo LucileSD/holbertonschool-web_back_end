@@ -58,23 +58,21 @@ def get_locale():
 def get_timezone():
     """define the best timezone"""
     timezone_str = request.args.get('timezone')
-    if timezone_str:
-        try:
-            timezone(timezone_str)
+
+    try:
+        timezone_str = request.args.get('timezone')
+        if timezone_str and pytz.timezone(timezone_str):
             return timezone_str
-        except pytz.exceptions.UnknownTimeZoneError:
-            pass
 
-    if g.user:
-        timezone_str = g.user.get("timezone")
-        if timezone_str:
-            try:
-                timezone(timezone_str)
+        if g.user:
+            timezone_str = g.user.get("timezone")
+            if timezone_str and pytz.timezone(timezone_str):
                 return timezone_str
-            except pytz.exceptions.UnknownTimeZoneError:
-                pass
+    except pytz.exceptions.UnknownTimeZoneError:
+        return 'UTC'
 
-    return app.config['BABEL_DEFAULT_TIMEZONE']
+    return request.accept_languages.best_match(app.config
+                                               ['BABEL_DEFAULT_LOCALE'])
 
 
 @app.route('/', methods=["GET"])
