@@ -66,7 +66,7 @@ class Cache():
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, *fn: Optional[Callable]) ->\
+    def get(self, key: str, fn: Optional[Callable]= None) ->\
             Union[str, bytes, int, float]:
         """convert the data back to the desired format"""
         if fn:
@@ -76,7 +76,7 @@ class Cache():
 
     def get_str(self, key: str) -> str:
         """parametrize Cache.get with the correct conversion function"""
-        return self.get(key, str)
+        return key.decode('utf-8')
 
     def get_int(self, key: str) -> int:
         """parametrize Cache.get with the correct conversion function"""
