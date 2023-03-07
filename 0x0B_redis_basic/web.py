@@ -13,14 +13,14 @@ r = redis.Redis()
 def get_page_count(method: Callable) -> Callable:
     """obtain the HTML content of a particular URL"""
     @wraps(method)
-    def count(*args):
-        r.incr(method)
+    def count(url):
+        r.incr(f"count:{url}")
         r.expire(method, 10)
-        return method(*args)
+        return method(url)
     return count
 
 
 @get_page_count
 def get_page(url: str) -> str:
     content = requests.get(url)
-    return content
+    return content.text
