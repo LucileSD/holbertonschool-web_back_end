@@ -80,4 +80,4 @@ class Cache():
 
     def get_int(self, key: str) -> int:
         """parametrize Cache.get with the correct conversion function"""
-        return self.get(key, int)
+        return int.from_bytes(key, 'big')
