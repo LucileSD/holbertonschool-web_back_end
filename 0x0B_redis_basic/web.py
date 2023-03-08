@@ -15,7 +15,10 @@ def get_page_count(method: Callable) -> Callable:
     @wraps(method)
     def count(url):
         r.incr(f"count:{url}")
-        r.expire(method, 10)
+        cached_response = r.get(f"cached:{url}")
+        if cached_response:
+            return cached_response.decode('utf-8')
+        r.setex(f"cached:{url}", 10, method(url))
         return method(url)
     return count
 
