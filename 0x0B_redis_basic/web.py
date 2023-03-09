@@ -14,16 +14,15 @@ def get_page_count(method: Callable) -> Callable:
     """obtain the HTML content of a particular URL"""
     @wraps(method)
     def count(url):
+        """method to count"""
         r.incr(f"count:{url}")
-        cached_response = r.get(f"cached:{url}")
-        if cached_response:
-            return cached_response.decode('utf-8')
-        r.setex(f"cached:{url}", 10, method(url))
+        r.expire(method, 10)
         return method(url)
     return count
 
 
 @get_page_count
 def get_page(url: str) -> str:
+    """requests the url"""
     content = requests.get(url)
     return content.text
