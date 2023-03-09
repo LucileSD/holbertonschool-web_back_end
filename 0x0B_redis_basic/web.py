@@ -16,8 +16,12 @@ def get_page_count(method: Callable) -> Callable:
     def count(url):
         """method to count"""
         r.incr(f"count:{url}")
-        r.expire(method, 10)
-        return method(url)
+        cached_html = r.get(f"cached:{url}")
+        if cached_html:
+            return cached_html.decode("utf-8")
+        html = method(url)
+        r.setex(f"cached:{url}", 10, html)
+        return html
     return count
 
 
