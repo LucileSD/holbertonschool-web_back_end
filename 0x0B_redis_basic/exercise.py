@@ -34,21 +34,22 @@ def call_history(method: Callable) -> Callable:
 
 def replay(method: Callable) -> None:
     """display the history of calls of a particular function"""
-    inputs = f"{method.__qualname__}:inputs"
-    outputs = f"{method.__qualname__}:outputs"
+    key = method.__qualname__
+    inputs = f"{key}:inputs"
+    outputs = f"{key}:outputs"
 
     r = method.__self__._redis
 
-    nb_calls = r.get(method.__qualname__).decode("utf-8")
+    nb_calls = r.get(key).decode("utf-8")
     list_input = r.lrange(inputs, 0, -1)
     list_ouput = r.lrange(outputs, 0, -1)
 
-    print(f"{method.__qualname__} was called {nb_calls} times")
+    print(f"{key} was called {nb_calls} times:")
 
     for enter, out in zip(list_input, list_ouput):
         inner = enter.decode("utf-8")
         outter = out.decode("utf-8")
-        print(f"{method.__qualname__}(*{inner}) -> {outter}")
+        print(f"{key}(*{inner}) -> {outter}")
 
 
 class Cache():
