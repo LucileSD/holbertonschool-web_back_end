@@ -37,7 +37,7 @@ def replay(method: Callable) -> None:
     inputs = "{}:inputs".format(method.__qualname__)
     outputs = "{}:outputs".format(method.__qualname__)
 
-    r = redis.Redis()
+    r = method.__self__._redis
 
     nb_calls = r.get(method.__qualname__).decode("utf-8")
     list_input = r.lrange(inputs, 0, -1)
