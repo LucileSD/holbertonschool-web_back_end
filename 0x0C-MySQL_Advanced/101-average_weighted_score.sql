@@ -8,7 +8,7 @@ BEGIN
 	SET average_score = (SELECT SUM(p.weight * c.score) / SUM(p.weight)
 						 FROM projects AS p
 						 INNER JOIN corrections AS c
-						 ON p.id = c.project_id AND users.id = c.user_id);
+						 ON p.id = c.project_id WHERE users.id = c.user_id);
 END;
 //
 DELIMITER ;
