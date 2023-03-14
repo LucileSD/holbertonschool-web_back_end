@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Top students"""
 
-from pymongo.collection import Collection
 import pymongo
 
 
-def top_students(mongo_collection: Collection):
+def top_students(mongo_collection):
     """make an average for each students of their score
        and sorted them by average score"""
     class_students = mongo_collection.find()
