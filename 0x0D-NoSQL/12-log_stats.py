@@ -13,7 +13,7 @@ print("Methods:")
 
 methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 for method in methods:
-    print("    method {}: {}".format(method,
+    print("\tmethod {}: {}".format(method,
                                      collection.count_documents
                                      ({"method": method})))
 
