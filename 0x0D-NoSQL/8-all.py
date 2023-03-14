@@ -6,4 +6,4 @@ from pymongo.collection import Collection
 
 def list_all(mongo_collection: Collection):
     """list all documents in a collection"""
-    return mongo_collection.find()
+    return list(mongo_collection.find())
