@@ -14,8 +14,8 @@ print("Methods:")
 methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 for method in methods:
     print("\tmethod {}: {}".format(method,
-                                     collection.count_documents
-                                     ({"method": method})))
+                                   collection.count_documents
+                                   ({"method": method})))
 
 count_status = collection.count_documents({"method": "GET", "path": "/status"})
 print("{} status check".format(count_status))
