@@ -6,9 +6,9 @@ export default function cleanSet(set, startString) {
   for (const element of set) {
     if (typeof element === 'string' && element.startsWith(startString) === true) {
       if (str === '') {
-        str += element.slice(3);
+        str += element.slice(startString.length);
       } else {
-        str = `${str}-${element.slice(3)}`;
+        str = `${str}-${element.slice(startString.length)}`;
       }
     }
   }
