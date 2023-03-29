@@ -6,6 +6,7 @@ module.exports = function countStudents(path) {
       if (err) {
         reject(new Error('Cannot load the database'));
       } else {
+        const response = [];
         const lines = data.split('\n').filter((line) => line);
         const students = lines.map((str) => {
           const [firstname, lastname, age, field] = str.split(',');
@@ -16,6 +17,7 @@ module.exports = function countStudents(path) {
         students.splice(0, 1);
         const countStudent = students.length;
         console.log(`Number of students: ${countStudent}`);
+        response.push(`Number of students: ${countStudent}`);
         const fields = new Set(students.map((student) => student.field));
         fields.forEach((subject) => {
           const listOfStudents = students.filter((stu) => stu.field === subject);
@@ -23,8 +25,9 @@ module.exports = function countStudents(path) {
           const listOfNameStudents = listOfStudents.map((name) => name.firstname);
           const listJoin = listOfNameStudents.join(', ');
           console.log(`Number of students in ${subject}: ${numberOfStudent}. List: ${listJoin}`);
+          response.push(`Number of students in ${subject}: ${numberOfStudent}. List: ${listJoin}`);
         });
-        resolve();
+        resolve(response);
       }
     });
   });
