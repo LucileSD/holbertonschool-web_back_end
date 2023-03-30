@@ -10,10 +10,10 @@ import uuid
 def count_calls(method: Callable) -> Callable:
     """define a decorator"""
     @wraps(method)
-    def count_wrapper(self, *args, **kwds) -> bytes:
+    def count_wrapper(self, *args, **kwargs) -> bytes:
         """increment by 1 every time the method is called"""
         self._redis.incr(method.__qualname__)
-        return method(self, *args, **kwds)
+        return method(self, *args, **kwargs)
     return count_wrapper
 
 
@@ -38,11 +38,12 @@ def replay(method: Callable) -> None:
     inputs = f"{key}:inputs"
     outputs = f"{key}:outputs"
 
-    r = method.__self__._redis
+    r = redis.Redis()
 
     nb_calls = r.get(key).decode("utf-8")
     list_input = r.lrange(inputs, 0, -1)
     list_ouput = r.lrange(outputs, 0, -1)
+    """count = len(list_input) instead of nb_calls"""
 
     print(f"{key} was called {nb_calls} times:")
 
@@ -75,10 +76,10 @@ class Cache():
             return fn(data)
         return self._redis.get(key)
 
-    def get_str(self, key: str) -> str:
+    def get_str(self, data: str) -> str:
         """parametrize Cache.get with the correct conversion function"""
-        return key.decode('utf-8')
+        return data.decode('utf-8')
 
-    def get_int(self, key: str) -> int:
+    def get_int(self, data: str) -> int:
         """parametrize Cache.get with the correct conversion function"""
-        return self.get(key, int)
+        return int(data)
