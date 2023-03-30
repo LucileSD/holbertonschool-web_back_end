@@ -40,6 +40,7 @@ class TestGetJson(unittest.TestCase):
         """test method get json()"""
         with patch("requests.get") as mc:
             mc.return_value.json.return_value = test_payload
+            """ json.return_value, met le retour en format json"""
             self.assertEqual(get_json(test_url), test_payload)
             mc.assert_called_once()
 
@@ -60,5 +61,5 @@ class TestMemoize(unittest.TestCase):
         with patch.object(TestClass, "a_method", return_value=42) as moc_meth:
             obj = TestClass()
             self.assertEqual(obj.a_property, moc_meth.return_value)
-            self.assertEqual(obj.a_property, moc_meth.return_value)
+            """a_property is call twice with TestCalss() and obj.a_property """
             moc_meth.assert_called_once()
