@@ -21,7 +21,7 @@ export function readDatabase(path) {
           const listOfNameStudents = listOfStudents.map((name) => name.firstname);
           const listJoin = listOfNameStudents.join(', ');
           console.log(`List: ${listJoin}`);
-          response.push(`List: ${listJoin}`);
+          response.push(subject, listOfNameStudents);
         });
         resolve(response);
       }
