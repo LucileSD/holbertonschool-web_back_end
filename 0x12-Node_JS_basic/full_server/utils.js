@@ -6,23 +6,26 @@ export default function readDatabase(path) {
       if (err) {
         reject(new Error('Cannot load the database'));
       } else {
-        const response = [];
         const lines = data.split('\n').filter((line) => line);
         const students = lines.map((str) => {
           const [firstname, lastname, age, field] = str.split(',');
-          return {
+          return [
             firstname, lastname, age, field,
-          };
+          ];
         });
         students.splice(0, 1);
-        const fields = new Set(students.map((student) => student.field));
-        fields.forEach((subject) => {
-          const listOfStudents = students.filter((stu) => stu.field === subject);
-          const listOfNameStudents = listOfStudents.map((name) => name.firstname);
-          const listJoin = listOfNameStudents.join(', ');
-          response.push(subject, listJoin);
-        });
-        resolve(response);
+        const classroom = students.reduce(
+          (accumulator, currentValue) => {
+            const firstname = currentValue[0];
+            const field = currentValue[3];
+            if (!accumulator[field]) {
+              accumulator[field] = [];
+            }
+            accumulator[field].push(firstname);
+            return (accumulator);
+          }, {},
+        );
+        resolve(classroom);
       }
     });
   });

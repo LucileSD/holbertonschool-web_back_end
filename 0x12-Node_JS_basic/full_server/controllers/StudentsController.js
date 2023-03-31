@@ -3,19 +3,13 @@ import readDatabase from '../utils';
 class StudentsController {
   static getAllStudents(request, response) {
     response.write('This is the list of our students\n');
+    const speciality = [];
     readDatabase('../database.csv')
       .then((data) => {
-        for (const idx in data) {
-          if (data[idx] !== 'SWE' && data[idx] !== 'CS') {
-            continue;
-          } else if (Number(idx) === data.length - 2) {
-            response.write(`Number of students in ${data[idx]}: ${data[Number(idx) + 1].length}. List: ${data[Number(idx) + 1]}`);
-          } else {
-            response.write(`Number of students in ${data[idx]}: ${data[Number(idx) + 1].length}. List: ${data[Number(idx) + 1]}\n`);
-          }
-          Number(idx) + 1;
-        }
-        response.status(200).end();
+        Object.entries(data).forEach(([key, value]) => {
+          speciality.push(`Number of students in ${key}: ${value.length}. List: ${value.join(', ')}`);
+        });
+        response.status(200).end(`${speciality.join('\n')}`);
       })
       .catch(() => {
         response.status(500).end('Cannot load the database');
@@ -24,16 +18,18 @@ class StudentsController {
 
   static getAllStudentsByMajor(request, response) {
     const { major } = request.params;
+    const listInSpe = [];
     if (major !== 'SWE' && major !== 'CS') {
       response.status(500).send('Major parameter must be CS or SWE');
     } else {
       readDatabase('../database.csv')
         .then((data) => {
-          for (const idx in data) {
-            if (data[idx] === major) {
-              response.status(200).send(`List: ${data[Number(idx) + 1]}`);
+          Object.entries(data).forEach(([key, value]) => {
+            if (key === major) {
+              listInSpe.push(`List: ${value.join(', ')}`);
             }
-          }
+          });
+          response.status(200).end(`${listInSpe}`);
         })
         .catch(() => {
           response.status(500).send('Cannot load the database');
