@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export function readDatabase(path) {
+export default function readDatabase(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
@@ -20,8 +20,7 @@ export function readDatabase(path) {
           const listOfStudents = students.filter((stu) => stu.field === subject);
           const listOfNameStudents = listOfStudents.map((name) => name.firstname);
           const listJoin = listOfNameStudents.join(', ');
-          console.log(`List: ${listJoin}`);
-          response.push(subject, listOfNameStudents);
+          response.push(subject, listJoin);
         });
         resolve(response);
       }
