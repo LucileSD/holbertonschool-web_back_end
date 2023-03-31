@@ -17,7 +17,7 @@ class StudentsController {
         }
         response.status(200).end();
       })
-      .catch((err) => {
+      .catch(() => {
         response.status(500).end('Cannot load the database');
       });
   }
@@ -35,7 +35,7 @@ class StudentsController {
             }
           }
         })
-        .catch((err) => {
+        .catch(() => {
           response.status(500).send('Cannot load the database');
         });
     }
