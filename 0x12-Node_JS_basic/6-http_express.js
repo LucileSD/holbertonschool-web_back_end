@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const app = express();
@@ -11,4 +12,4 @@ app.listen(port, () => {
   console.log(`Server running at port: ${port}`);
 });
 
-exports.app = app;
+module.exports = app;

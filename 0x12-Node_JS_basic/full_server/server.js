@@ -7,11 +7,13 @@ import AppController from "./controllers/AppController";
 import StudentsController from "./controllers/StudentsController";
 
 app.get('/', (req, res) => {
-  AppController;
+  const control = new AppController;
+  res.send(control);
 })
 
 app.get(['/students', '/students/:major'], (req, res) => {
-  StudentsController;
+  const classroom = new StudentsController;
+  res.send(classroom);
 })
 
 app.listen(port, () => {
