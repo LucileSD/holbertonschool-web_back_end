@@ -22,7 +22,7 @@ export default function readDatabase(path) {
               accumulator[field] = [];
             }
             accumulator[field].push(firstname);
-            return (accumulator);
+            return (Object.fromEntries(Object.entries(accumulator).sort()));
           }, {},
         );
         resolve(classroom);
