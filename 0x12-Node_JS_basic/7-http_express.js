@@ -10,13 +10,13 @@ app.get('/', (req, res) => {
 
 app.get('/students', (req, res) => {
   countStudents(process.argv[2])
-  .then((content) => {
-    res.send(`This is the list of our students\n${content.join('\n')}`);
-  })
-  .catch((err) => {
-    res.end(err.toString());
-  }
-);})
+    .then((content) => {
+      res.send(`This is the list of our students\n${content.join('\n')}`);
+    })
+    .catch((err) => {
+      res.end(err.toString());
+    });
+});
 
 app.listen(port, () => {
   console.log(`Server running at port: ${port}`);

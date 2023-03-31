@@ -16,9 +16,9 @@ const server = app.createServer((req, res) => {
       .then((data) => {
         res.end(`${data.join('\n')}`);
       })
-      .catch ((err) => {
+      .catch((err) => {
         res.end(err.message);
-      })
+      });
   }
 });
 
