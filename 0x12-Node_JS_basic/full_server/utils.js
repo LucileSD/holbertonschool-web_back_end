@@ -4,7 +4,7 @@ export default function readDatabase(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
-        reject(new Error('Cannot load the database'));
+        reject(new Error(err));
       } else {
         const lines = data.split('\n').filter((line) => line);
         const students = lines.map((str) => {
