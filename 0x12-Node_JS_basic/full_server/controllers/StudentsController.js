@@ -1,10 +1,10 @@
 import readDatabase from '../utils';
 
 class StudentsController {
-  static getAllStudents(request, response) {
+  static getAllStudents(request, response, database) {
     response.write('This is the list of our students\n');
     const speciality = [];
-    readDatabase(process.argv[3])
+    readDatabase(database)
       .then((data) => {
         Object.entries(data).forEach(([key, value]) => {
           speciality.push(`Number of students in ${key}: ${value.length}. List: ${value.join(', ')}`);
@@ -16,13 +16,13 @@ class StudentsController {
       });
   }
 
-  static getAllStudentsByMajor(request, response) {
+  static getAllStudentsByMajor(request, response, database) {
     const { major } = request.params;
     const listInSpe = [];
     if (major !== 'SWE' && major !== 'CS') {
       response.status(500).send('Major parameter must be CS or SWE');
     } else {
-      readDatabase(process.argv[3])
+      readDatabase(database)
         .then((data) => {
           Object.entries(data).forEach(([key, value]) => {
             if (key === major) {
