@@ -9,7 +9,6 @@ const server = app.createServer((req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(port);
 });
 
 module.exports = app;
