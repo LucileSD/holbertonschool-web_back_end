@@ -4,7 +4,7 @@ class StudentsController {
   static getAllStudents(request, response) {
     response.write('This is the list of our students\n');
     const speciality = [];
-    readDatabase('../database.csv')
+    readDatabase(process.argv[3])
       .then((data) => {
         Object.entries(data).forEach(([key, value]) => {
           speciality.push(`Number of students in ${key}: ${value.length}. List: ${value.join(', ')}`);
@@ -22,7 +22,7 @@ class StudentsController {
     if (major !== 'SWE' && major !== 'CS') {
       response.status(500).send('Major parameter must be CS or SWE');
     } else {
-      readDatabase('../database.csv')
+      readDatabase(process.argv[3])
         .then((data) => {
           Object.entries(data).forEach(([key, value]) => {
             if (key === major) {
