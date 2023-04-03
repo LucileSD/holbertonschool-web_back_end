@@ -22,8 +22,6 @@ app.get('/students', (req, res) => {
     });
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at port: ${port}`);
-});
+app.listen(port, hostname);
 
 module.exports = app;
