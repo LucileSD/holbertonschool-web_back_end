@@ -11,9 +11,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
+  res.write('This is the list of our students\n');
   countStudents(db)
     .then((content) => {
-      res.write('This is the list of our students\n');
       res.end(`${content.join('\n')}`);
     })
     .catch((err) => {
