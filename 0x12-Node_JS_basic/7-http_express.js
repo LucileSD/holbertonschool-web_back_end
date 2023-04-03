@@ -1,6 +1,8 @@
 const express = require('express');
 const countStudents = require('./3-read_file_async');
 
+const db = process.argv[2];
+
 const app = express();
 const port = 1245;
 
@@ -9,7 +11,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/students', (req, res) => {
-  countStudents(process.argv[2])
+  countStudents(db)
     .then((content) => {
       res.write('This is the list of our students\n');
       res.end(`${content.join('\n')}`);
