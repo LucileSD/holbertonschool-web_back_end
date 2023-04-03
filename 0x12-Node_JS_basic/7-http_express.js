@@ -11,7 +11,8 @@ app.get('/', (req, res) => {
 app.get('/students', (req, res) => {
   countStudents(process.argv[2])
     .then((content) => {
-      res.send(`This is the list of our students\n${content.join('\n')}`);
+      res.write('This is the list of our students\n')
+      res.end(`${content.join('\n')}`);
     })
     .catch((err) => {
       res.end(err.toString());
