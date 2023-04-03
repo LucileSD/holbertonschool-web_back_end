@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 app.get('/students', (req, res) => {
   countStudents(process.argv[2])
     .then((content) => {
-      res.write('This is the list of our students\n')
+      res.write('This is the list of our students\n');
       res.end(`${content.join('\n')}`);
     })
     .catch((err) => {
