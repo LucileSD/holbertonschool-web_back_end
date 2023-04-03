@@ -2,10 +2,10 @@ import readDatabase from '../utils';
 
 class StudentsController {
   static getAllStudents(request, response, database) {
-    response.write('This is the list of our students\n');
     const speciality = [];
     readDatabase(database)
       .then((data) => {
+        response.write('This is the list of our students\n');
         Object.entries(data).forEach(([key, value]) => {
           speciality.push(`Number of students in ${key}: ${value.length}. List: ${value.join(', ')}`);
         });
