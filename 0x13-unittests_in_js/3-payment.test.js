@@ -9,6 +9,6 @@ describe('same output', () => {
     const apiRequest = sendPaymentRequestToApi(100, 20);
     expect(spyUtils.calledOnceWith('SUM', 100, 20)).to.equal(true);
     expect(utils.calculateNumber('SUM', 100, 20)).to.equal(apiRequest);
-    sinon.restore();
+    spyUtils.restore();
   });
 });
