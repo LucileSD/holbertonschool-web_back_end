@@ -2,12 +2,9 @@
 	"name": "node_js_basics",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "0-calcul.j",
 	"scripts": {
-		"lint": "./node_modules/.bin/eslint",
-		"check-lint": "eslint [0-9]*.js",
-		"test": "./node_modules/mocha/bin/mocha --require babel-register --exit",
-		"dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv"
+		"test": "./node_modules/mocha/bin/mocha"
 	},
 	"author": "",
 	"license": "ISC",
