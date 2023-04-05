@@ -6,7 +6,7 @@ describe('getPaymentTokenFromAPI', () => {
   it('should display Successful response from the API if true is passed', () => new Promise((done) => {
     getPaymentTokenFromAPI(true)
       .then((response) => {
-        expect(response).to.equal({ data: 'Successful response from the API' });
+        expect(response).to.deep.equal({ data: 'Successful response from the API' });
         done();
       }).catch((err) => {
         done();
