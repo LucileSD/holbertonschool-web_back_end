@@ -47,8 +47,8 @@ describe('test for index page', () => {
     it('should send status code 200 and {"payment_methods":{"credit_cards":true,"paypal":false}}', () => new Promise((done) => {
       const url = 'http://localhost:7865/available_payments';
       request(url, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
-        expect(body).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
+        expect(res.statusCode).to.deep.equal(200);
+        expect(body).to.deep.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
         done();
       });
     }));
@@ -63,6 +63,19 @@ describe('test for index page', () => {
       request(option, (err, res, body) => {
         expect(res.statusCode).to.deep.equal(200);
         expect(body).to.deep.equal('Welcome Betty');
+        done();
+      });
+    }));
+  });
+  describe('test /login available_payments', () => {
+    it('should send status code 200 and Welcome undefined', () => new Promise((done) => {
+      const option = {
+        url: 'http://localhost:7865/login',
+        method: 'POST',
+      };
+      request(option, (err, res, body) => {
+        expect(res.statusCode).to.deep.equal(200);
+        expect(body).to.deep.equal('Welcome undefined');
         done();
       });
     }));
