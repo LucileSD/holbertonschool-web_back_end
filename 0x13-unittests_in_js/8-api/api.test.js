@@ -20,4 +20,12 @@ describe('test for index page', () => {
       });
     });
   });
+  describe('test for method', () => {
+    const url = 'http://localhost:7865';
+    it('should send the status code 200', () => {
+      request(url, (err, res, body) => {
+        expect(res.request.method).to.equal('GET');
+      });
+    });
+  });
 });
