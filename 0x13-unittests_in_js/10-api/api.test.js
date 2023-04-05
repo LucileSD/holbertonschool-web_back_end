@@ -44,27 +44,27 @@ describe('test for index page', () => {
     }));
   });
   describe('test /available_payments available_payments', () => {
-    it('should send status code 200 and {"payment_methods":{"credit_cards":true,"paypal":false}}', (done) => {
+    it('should send status code 200 and {"payment_methods":{"credit_cards":true,"paypal":false}}', () => new Promise((done) => {
       const url = 'http://localhost:7865/available_payments';
       request(url, (err, res, body) => {
         expect(res.statusCode).to.equal(200);
         expect(body).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
         done();
       });
-    });
+    }));
   });
   describe('test /login available_payments', () => {
-    it('should send status code 200 and Welcome Betty', (done) => {
+    it('should send status code 200 and Welcome Betty', () => new Promise((done) => {
       const option = {
         url: 'http://localhost:7865/login',
         method: 'POST',
-        json: { userName: 'Betty'}
-      }
+        json: { userName: 'Betty' },
+      };
       request(option, (err, res, body) => {
         expect(res.statusCode).to.equal(200);
         expect(body).to.equal('Welcome Betty');
         done();
       });
-    });
+    }));
   });
 });
