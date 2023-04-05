@@ -61,8 +61,8 @@ describe('test for index page', () => {
         json: { userName: 'Betty' },
       };
       request(option, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
-        expect(body).to.equal('Welcome Betty');
+        expect(res.statusCode).to.deep.equal(200);
+        expect(body).to.deep.equal('Welcome Betty');
         done();
       });
     }));
