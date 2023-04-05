@@ -96,3 +96,33 @@ describe('calcul test', () => {
     assert.equal(calculateNumber(-Infinity, 1), -Infinity);
   });
 });
+
+describe('calcul test', () => {
+  it('should test a = -0 et b = 1', () => {
+    assert.equal(calculateNumber(-0, 1), 1);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = NaN et b = 1', () => {
+    assert(isNaN(calculateNumber(NaN, 1)));
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = NaN et b = NaN', () => {
+    assert(isNaN(calculateNumber(NaN, NaN)));
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = 0 et b = 0', () => {
+    assert.strictEqual(calculateNumber(0, 0), 0);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = 0 et b = 0', () => {
+    assert.strictEqual(calculateNumber(0.2, 0.4), 0);
+  });
+});
