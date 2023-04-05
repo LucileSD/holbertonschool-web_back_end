@@ -9,7 +9,7 @@ describe('getPaymentTokenFromAPI', () => {
         expect(response).to.deep.equal({ data: 'Successful response from the API' });
         done();
       }).catch((err) => {
-        done();
+        done(err);
       });
   }));
 });
