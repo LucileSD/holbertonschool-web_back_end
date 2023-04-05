@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const hostname = 'localhost';
 const port = 7865;
 
 app.use(bodyParser.json());
@@ -32,7 +31,7 @@ app.post('/login', (req, res) => {
   res.send(`Welcome ${username}`);
 });
 
-app.listen(port, hostname, () => {
+app.listen(port, () => {
   console.log(`API available on localhost port ${port}`);
 });
 
