@@ -9,8 +9,8 @@ describe('test for index page', () => {
     it('should send the status code 200, Welcome to the payment system', (done) => {
       const url = 'http://localhost:7865';
       request(url, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
-        expect(body).to.equal('Welcome to the payment system');
+        expect(res.statusCode).to.deep.equal(200);
+        expect(body).to.deep.equal('Welcome to the payment system');
         done();
       });
     });
@@ -20,7 +20,7 @@ describe('test for index page', () => {
       const url = 'http://localhost:7865/cart/12';
       request(url, (err, res, body) => {
         expect(res.statusCode).to.equal(200);
-        expect(body).to.equal('Payment methods for cart 12');
+        expect(body).to.deep.equal('Payment methods for cart 12');
         done();
       });
     });
@@ -29,7 +29,7 @@ describe('test for index page', () => {
     it('should send status code 404 if no id', (done) => {
       const url = 'http://localhost:7865/cart/';
       request(url, (err, res, body) => {
-        expect(res.statusCode).to.equal(404);
+        expect(res.statusCode).to.deep.equal(404);
         done();
       });
     });
@@ -38,7 +38,7 @@ describe('test for index page', () => {
     it('should send status code 404 if id is a word', (done) => {
       const url = 'http://localhost:7865/cart/hello';
       request(url, (err, res, body) => {
-        expect(res.statusCode).to.equal(404);
+        expect(res.statusCode).to.deep.equal(404);
         done();
       });
     });
