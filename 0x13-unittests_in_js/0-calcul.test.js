@@ -66,3 +66,33 @@ describe('calcul test', () => {
     assert.equal(calculateNumber(1, -3.2), -2);
   });
 });
+
+describe('calcul test', () => {
+  it('should test a et b = 0', () => {
+    assert.equal(calculateNumber(0, 0), 0);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a et b = infinity', () => {
+    assert.equal(calculateNumber(Infinity, Infinity), Infinity);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = 1 et b = infinity', () => {
+    assert.equal(calculateNumber(1, Infinity), Infinity);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = infinity et b = 1', () => {
+    assert.equal(calculateNumber(Infinity, 1), Infinity);
+  });
+});
+
+describe('calcul test', () => {
+  it('should test a = -infinity et b = 1', () => {
+    assert.equal(calculateNumber(-Infinity, 1), -Infinity);
+  });
+});
