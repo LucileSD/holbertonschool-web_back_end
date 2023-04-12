@@ -35,7 +35,7 @@ const listProducts = [
 
 const getAsync = promisify(client.get).bind(client);
 
-const getItemById = (id) => listProducts.find((item) => item.itemId === parseInt(id));
+const getItemById = (id) => listProducts.find((item) => item.itemId === id);
 
 const reserveStockById = (itemId, stock) => {
   client.set(`item.${itemId}`, stock);
@@ -43,33 +43,36 @@ const reserveStockById = (itemId, stock) => {
 
 const getCurrentReservedStockById = async (itemId) => {
   const stock = await getAsync(`item.${itemId}`);
-  return stock;
+  return Number(stock);
 };
 
-app.get('/list_products', (request, response) => {
-  response.json(listProducts);
+app.get('/list_products', async (req, res) => {
+  res.json(listProducts);
 });
 
-app.get('/list_products/:itemId', async (request, response) => {
-  const stock = await getCurrentReservedStockById(request.params.itemId);
-  const item = getItemById(request.params.itemId);
+app.get('/list_products/:itemId', async (req, res) => {
+  const item = getItemById(Number(req.params.itemId));
+  const stock = await getCurrentReservedStockById(Number(req.params.id));
   if (!item) {
-    response.json({ status: 'Product not found' });
+    res.json({ status: 'Product not found' });
   } else {
-    response.json({ ...item, currentQuantity: item.initialAvailableQuantity - stock });
+    res.json({ ...item, currentQuantity: item.initialAvailableQuantity - stock });
   }
 });
 
-app.get('/reserve_product/:itemId', async (request, response) => {
-  const item = getItemById(request.params.itemId);
-  const stock = await getCurrentReservedStockById(request.params.itemId);
+app.get('/reserve_product/:itemId', async (req, res) => {
+  const item = getItemById(Number(req.params.itemId));
+  const stock = Number(await getCurrentReservedStockById(Number(req.params.id)));
   if (!item) {
-    response.json({ status: 'Product not found' });
-  } else if (item.initialAvailableQuantity < 1) {
-    response.json({ status: 'Not enough stock available', itemId: item.itemId });
+    res.json({ status: 'Product not found' });
   } else {
-    reserveStockById(item.itemId, stock);
-    response.json({ status: 'Reservation confirmed', itemId: item.itemId });
+    if (item.initialAvailableQuantity - stock === 0) {
+      res.json({ status:"Not enough stock available", itemId: `${item.itemId}` })
+    } else {
+      console.log(stock);
+      reserveStockById(item.itemId, stock + 1);
+      res.json({ status:"Reservation confirmed", itemId: `${item.itemId}` })
+    }
   }
 });
 
