@@ -67,11 +67,10 @@ app.get('/reserve_product/:itemId', async (req, res) => {
     res.json({ status: 'Product not found' });
   } else {
     if (item.initialAvailableQuantity - stock === 0) {
-      res.json({ status:"Not enough stock available", itemId: `${item.itemId}` })
+      res.json({ status:"Not enough stock available", itemId: `${item.itemId}` });
     } else {
-      console.log(stock);
       reserveStockById(item.itemId, stock + 1);
-      res.json({ status:"Reservation confirmed", itemId: `${item.itemId}` })
+      res.json({ status:"Reservation confirmed", itemId: `${item.itemId}` });
     }
   }
 });
