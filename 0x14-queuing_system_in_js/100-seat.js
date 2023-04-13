@@ -44,8 +44,6 @@ app.get('/process', (request, response) => {
   response.json({ status: 'Queue processing' });
   queue.process('reserve_seat', async (job, done) => {
     const number = Number(await getCurrentAvailableSeats()) - 1;
-    console.log(number);
-    console.log(typeof number);
     if (number <= 0) {
       reservationEnabled = false;
       const err = new Error('Not enough seats available');
